@@ -97,6 +97,7 @@
 
                 document.querySelector('.card').innerHTML = `
                     <div class="tijoloAnimacao">
+
                         <div class="emojiTijolo">
                             🧱
                         </div>
@@ -104,14 +105,31 @@
                         <div class="textoTijolo">
                             +1 tijolo para o templo
                         </div>
+
                     </div>
                 `;
 
-                await new Promise(resolve =>
-                    setTimeout(resolve, 900)
-                );
+            } else {
+
+                document.querySelector('.card').innerHTML = `
+                    <div class="tijoloAnimacao">
+
+                        <div class="emojiTijolo">
+                            🌱
+                        </div>
+
+                        <div class="textoTijolo">
+                            Continue avançando.
+                        </div>
+
+                    </div>
+                `;
 
             }
+
+            await new Promise(resolve =>
+                setTimeout(resolve, 900)
+            );
 
             atual++;
 
