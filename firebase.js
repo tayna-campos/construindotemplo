@@ -4,3 +4,31 @@ const firebaseConfig={apiKey:"AIzaSyDEN1XSKmtIi-DlLihv65GOdNa6v0oMcfw",authDomai
 const app=initializeApp(firebaseConfig);
 export const db=getFirestore(app);
 export {doc,updateDoc,increment,onSnapshot};
+import {
+  db,
+  doc,
+  onSnapshot,
+  updateDoc
+} from './firebase.js';
+
+document
+.getElementById("resetBtn")
+.addEventListener("click", async () => {
+
+  const confirmar = confirm(
+    "Deseja realmente reiniciar a atividade?"
+  );
+
+  if(!confirmar) return;
+
+  await updateDoc(
+    doc(db,"atividade","progresso"),
+    {
+      respostas: 0,
+      pontos: 0,
+      participantes: 0,
+      quadradosRevelados: 0
+    }
+  );
+
+});
