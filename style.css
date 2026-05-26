@@ -1,30 +1,182 @@
+body{
+  margin:0;
+  font-family:Segoe UI,Arial,sans-serif;
+  background:#081726;
+  color:white;
+}
 
-body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#081726;color:white}
-.questionario{display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(180deg,#081726,#0d2744)}
-.card{max-width:700px;width:90%;background:rgba(255,255,255,.08);backdrop-filter:blur(8px);padding:30px;border-radius:20px;text-align:center}
-h1{color:#e0c36a}
-.sub{opacity:.9}
-button{width:100%;padding:18px;margin-top:12px;border:none;border-radius:12px;font-size:18px;cursor:pointer}
-#sim{background:#e0c36a}
-#nao{background:#fff}
-.templo{position:fixed;inset:0;width:100%;height:100%;object-fit:cover}
-#grid{position:fixed;inset:0;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr)}
-.square{background:#071423;border:1px solid rgba(255,255,255,.03);transition:all .9s ease}
-.hidden{opacity:0;box-shadow:0 0 15px rgba(224,195,106,.8)}
-.painel{position:fixed;top:20px;left:20px;z-index:20;background:rgba(0,0,0,.55);padding:20px;border-radius:18px}
-.barra{width:320px;height:22px;background:#233}
-#progresso{height:100%;width:0;background:linear-gradient(90deg,#caa84f,#f3dc95)}
-#final{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);max-width:850px;background:rgba(0,0,0,.82);padding:35px;border-radius:20px;z-index:50;text-align:center}
+/* =========================
+   QUESTIONÁRIO
+========================= */
+
+.questionario{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  background:linear-gradient(180deg,#081726,#0d2744);
+  padding:20px;
+}
+
+.card{
+  max-width:1000px;
+  width:90%;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(8px);
+  padding:40px;
+  border-radius:24px;
+  text-align:center;
+}
+
+h1{
+  color:#e0c36a;
+  font-size:3rem;
+  margin-bottom:20px;
+}
+
+.sub{
+  font-size:1.2rem;
+  opacity:.9;
+  margin-bottom:40px;
+}
+
+#p{
+  font-size:2.2rem;
+  line-height:1.4;
+  margin-bottom:40px;
+}
+
+/* BOTÕES */
+
+#sim,
+#nao{
+  width:100%;
+  padding:24px;
+  margin-top:16px;
+  border:none;
+  border-radius:16px;
+  font-size:1.8rem;
+  cursor:pointer;
+  background:#ffffff;
+  color:#111;
+  transition:all .2s ease;
+}
+
+#sim:hover,
+#nao:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+/* =========================
+   TELA DO TEMPLO
+========================= */
+
+.templo{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+#grid{
+  position:fixed;
+  inset:0;
+  display:grid;
+  grid-template-columns:repeat(15,1fr);
+  grid-template-rows:repeat(15,1fr);
+  z-index:5;
+}
+
+.square{
+  background:#071423;
+  border:1px solid rgba(255,255,255,.03);
+  transition:all .9s ease;
+}
+
+.hidden{
+  opacity:0;
+  box-shadow:0 0 15px rgba(224,195,106,.8);
+}
+
+.painel{
+  position:fixed;
+  top:20px;
+  left:20px;
+  z-index:20;
+  background:rgba(0,0,0,.55);
+  padding:20px;
+  border-radius:18px;
+  width:320px;
+}
+
+.painel h1{
+  font-size:2rem;
+  margin:0 0 10px 0;
+}
+
+.painel p{
+  margin-bottom:15px;
+}
+
+.barra{
+  width:100%;
+  height:22px;
+  background:#233;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+#progresso{
+  height:100%;
+  width:0;
+  background:linear-gradient(
+    90deg,
+    #caa84f,
+    #f3dc95
+  );
+  transition:width .5s ease;
+}
+
+#contador{
+  font-size:1.4rem;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+#final{
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  max-width:850px;
+  background:rgba(0,0,0,.82);
+  padding:35px;
+  border-radius:20px;
+  z-index:50;
+  text-align:center;
+}
+
+#final h2{
+  color:#e0c36a;
+  margin-bottom:15px;
+}
+
+/* BOTÃO RESET */
+
 #resetBtn{
-margin-top:15px;
-padding:8px 12px;
-background:#7a1f1f;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
+  margin-top:15px;
+  width:100%;
+  padding:10px;
+  background:#8a2e2e;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
 }
 
 #resetBtn:hover{
-opacity:.9;
+  opacity:.9;
 }
