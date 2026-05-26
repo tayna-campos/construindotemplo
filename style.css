@@ -187,3 +187,38 @@ h1{
   background:rgba(255,255,255,.3);
   transform:rotate(90deg);
 }
+.tijoloAnimacao{
+  text-align:center;
+  padding:40px;
+}
+
+.emojiTijolo{
+  font-size:5rem;
+  animation:pulsar .8s ease;
+}
+
+.textoTijolo{
+  margin-top:15px;
+  font-size:2rem;
+  color:#e0c36a;
+  font-weight:bold;
+}
+
+@keyframes pulsar{
+
+  0%{
+    transform:scale(.8);
+    opacity:0;
+  }
+
+  50%{
+    transform:scale(1.15);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+}
