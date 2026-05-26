@@ -1,4 +1,14 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'><title>Templo</title><link rel='stylesheet' href='style.css'></head><body><img src='templo-curitiba.jpg' class='templo'><div class='painel'><h1>Revelando o Templo</h1><p>Cada escolha aproxima-nos mais do Senhor.</p><div id='c'>0 de 225 pontos</div><div class='barra'><div id='progresso'></div></div></div><div id='grid'></div><div id='final'><h2>Templo Revelado!</h2><p>Assim como um templo é construído pedra por pedra, nossa preparação espiritual acontece escolha por escolha.</p></div><script type='module'>import {db,doc,onSnapshot} from './firebase.js';const total=225,g=document.getElementById('grid'),q=[];for(let i=0;i<225;i++){let d=document.createElement('div');d.className='square';g.appendChild(d);q.push(d)}q.sort(()=>Math.random()-0.5);onSnapshot(doc(db,'atividade','progresso'),s=>{const n=Math.min((s.data()||{}).quadradosRevelados||0,total);for(let i=0;i<n;i++)q[i].classList.add('hidden');c.innerText=`${n} de ${total} pontos`;progresso.style.width=`${n/total*100}%`;if(n>=total)final.style.display='block';});</script></body></html>
-<button id="resetBtn">
-Resetar Atividade
-</button>
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>Templo</title><link rel='stylesheet' href='style.css'></head><body><img src='templo-curitiba.jpg' class='templo'><div class="painel">
+  <h1>Revelando o Templo</h1>
+  <p>Cada escolha aproxima-nos mais do Senhor.</p>
+
+  <div id="contador">0 de 225 pontos</div>
+
+  <div class="barra">
+    <div id="progresso"></div>
+  </div>
+
+  <button id="resetBtn" title="Reiniciar atividade">
+    ↻
+  </button>
+</div>
