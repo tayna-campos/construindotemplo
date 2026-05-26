@@ -1,1 +1,187 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'><title>Revelando o Templo</title><link rel='stylesheet' href='style.css'></head><body class='questionario'><div class='card'><h1>Revelando o Templo</h1><p class='sub'>Cada escolha aproxima-nos mais do Senhor.</p><h2 id='p'></h2><button id='sim'>Sim</button><button id='nao'>Ainda estou trabalhando nisso</button></div><script type='module'>import {db,doc,updateDoc,increment} from './firebase.js';const qs=['Tenho uma foto do templo em casa ou no celular.','Penso frequentemente em fazer convênios no templo.','Já participei de batismos vicários.','Tenho uma meta relacionada ao templo.','Costumo orar para me preparar espiritualmente.','Sei explicar por que os templos são importantes.','Tenho interesse em história da família.','Leio ou ouço ensinamentos sobre o templo.','Sinto desejo de frequentar o templo.','Procuro viver dignamente para entrar no templo.'];let i=0;const p=document.getElementById('p');p.textContent=qs[0];async function r(sim){let obj={respostas:increment(1)};if(sim){obj.pontos=increment(1);obj.quadradosRevelados=increment(1)}await updateDoc(doc(db,'atividade','progresso'),obj);i++;if(i<qs.length){p.textContent=qs[i]}else{document.body.innerHTML='<div class=card><h1>Obrigado!</h1><p>Sua participação ajudou a revelar o templo.</p></div>'}};sim.onclick=()=>r(true);nao.onclick=()=>r(false);</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelando o Templo</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="questionario">
+
+    <div class="card">
+
+        <h1>Revelando o Templo</h1>
+
+        <p class="sub">
+            Cada escolha aproxima-nos mais do Senhor.
+        </p>
+
+        <h2 id="p"></h2>
+
+        <button id="sim">
+            Sim
+        </button>
+
+        <button id="nao">
+            Ainda estou trabalhando nisso
+        </button>
+
+    </div>
+
+    <script type="module">
+
+        import {
+            db,
+            doc,
+            updateDoc,
+            increment
+        } from './firebase.js';
+
+        const perguntas = [
+
+            "Tenho uma foto do templo em casa ou no celular.",
+
+            "Penso frequentemente em fazer convênios no templo.",
+
+            "Já participei de batismos vicários.",
+
+            "Tenho uma meta relacionada ao templo.",
+
+            "Costumo orar para me preparar espiritualmente.",
+
+            "Sei explicar por que os templos são importantes.",
+
+            "Tenho interesse em história da família.",
+
+            "Leio ou ouço ensinamentos sobre o templo.",
+
+            "Sinto desejo de frequentar o templo.",
+
+            "Procuro viver dignamente para entrar no templo."
+
+        ];
+
+        let atual = 0;
+
+        const pergunta =
+            document.getElementById('p');
+
+        pergunta.textContent =
+            perguntas[0];
+
+        async function responder(revela) {
+
+            const payload = {
+                respostas: increment(1)
+            };
+
+            if (revela) {
+
+                payload.pontos =
+                    increment(1);
+
+                payload.quadradosRevelados =
+                    increment(1);
+
+            }
+
+            await updateDoc(
+                doc(db, 'atividade', 'progresso'),
+                payload
+            );
+
+            if (revela) {
+
+                document.querySelector('.card').innerHTML = `
+                    <div class="tijoloAnimacao">
+                        <div class="emojiTijolo">
+                            🧱
+                        </div>
+
+                        <div class="textoTijolo">
+                            +1 tijolo para o templo
+                        </div>
+                    </div>
+                `;
+
+                await new Promise(resolve =>
+                    setTimeout(resolve, 900)
+                );
+
+            }
+
+            atual++;
+
+            if (atual < perguntas.length) {
+
+                document.querySelector('.card').innerHTML = `
+
+                    <h1>Revelando o Templo</h1>
+
+                    <p class="sub">
+                        Cada escolha aproxima-nos mais do Senhor.
+                    </p>
+
+                    <h2 id="p"></h2>
+
+                    <button id="sim">
+                        Sim
+                    </button>
+
+                    <button id="nao">
+                        Ainda estou trabalhando nisso
+                    </button>
+
+                `;
+
+                document
+                    .getElementById('p')
+                    .textContent =
+                    perguntas[atual];
+
+                document
+                    .getElementById('sim')
+                    .onclick =
+                    () => responder(true);
+
+                document
+                    .getElementById('nao')
+                    .onclick =
+                    () => responder(false);
+
+            } else {
+
+                document.querySelector('.card').innerHTML = `
+
+                    <h1>
+                        Obrigado!
+                    </h1>
+
+                    <p>
+                        Sua participação ajudou a revelar o templo.
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+        document
+            .getElementById('sim')
+            .onclick =
+            () => responder(true);
+
+        document
+            .getElementById('nao')
+            .onclick =
+            () => responder(false);
+
+    </script>
+
+</body>
+
+</html>
