@@ -1,14 +1,141 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'><title>Templo</title><link rel='stylesheet' href='style.css'></head><body><img src='templo-curitiba.jpg' class='templo'><div class="painel">
-  <h1>Revelando o Templo</h1>
-  <p>Cada escolha aproxima-nos mais do Senhor.</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-  <div id="contador">0 de 225 pontos</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelando o Templo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-  <div class="barra">
-    <div id="progresso"></div>
-  </div>
+<body>
 
-  <button id="resetBtn" title="Reiniciar atividade">
-    ↻
-  </button>
-</div>
+    <img src="templo-curitiba.jpg" class="templo">
+
+    <div class="painel">
+
+        <h1>Revelando o Templo</h1>
+
+        <p>
+            Cada escolha aproxima-nos mais do Senhor.
+        </p>
+
+        <div id="contador">
+            0 de 225 pontos
+        </div>
+
+        <div class="barra">
+            <div id="progresso"></div>
+        </div>
+
+        <button id="resetBtn" title="Reiniciar atividade">
+            ↻
+        </button>
+
+    </div>
+
+    <div id="grid"></div>
+
+    <div id="final">
+        <h2>Templo Revelado!</h2>
+
+        <p>
+            Assim como um templo é construído pedra por pedra,
+            nossa preparação espiritual acontece escolha por escolha.
+        </p>
+    </div>
+
+    <script type="module">
+
+        import {
+            db,
+            doc,
+            onSnapshot,
+            updateDoc
+        } from './firebase.js';
+
+        const total = 225;
+
+        const grid = document.getElementById('grid');
+
+        const quadrados = [];
+
+        for (let i = 0; i < total; i++) {
+
+            const div = document.createElement('div');
+
+            div.className = 'square';
+
+            grid.appendChild(div);
+
+            quadrados.push(div);
+
+        }
+
+        quadrados.sort(() => Math.random() - 0.5);
+
+        onSnapshot(
+            doc(db, 'atividade', 'progresso'),
+            snapshot => {
+
+                const dados = snapshot.data() || {};
+
+                const revelados = Math.min(
+                    dados.quadradosRevelados || 0,
+                    total
+                );
+
+                quadrados.forEach(q => {
+                    q.classList.remove('hidden');
+                });
+
+                for (let i = 0; i < revelados; i++) {
+                    quadrados[i].classList.add('hidden');
+                }
+
+                document.getElementById('contador').innerText =
+                    `${revelados} de ${total} pontos`;
+
+                document.getElementById('progresso').style.width =
+                    `${(revelados / total) * 100}%`;
+
+                if (revelados >= total) {
+
+                    document.getElementById('final').style.display = 'block';
+
+                } else {
+
+                    document.getElementById('final').style.display = 'none';
+
+                }
+
+            }
+        );
+
+        document
+            .getElementById('resetBtn')
+            .addEventListener('click', async () => {
+
+                const confirmar = confirm(
+                    'Deseja reiniciar a atividade?'
+                );
+
+                if (!confirmar) return;
+
+                await updateDoc(
+                    doc(db, 'atividade', 'progresso'),
+                    {
+                        respostas: 0,
+                        pontos: 0,
+                        participantes: 0,
+                        quadradosRevelados: 0
+                    }
+                );
+
+            });
+
+    </script>
+
+</body>
+
+</html>
